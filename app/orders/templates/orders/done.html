@@ -1,0 +1,28 @@
+{% extends "/main/base.html" %}
+
+{% block content %}
+
+{% from "/main/_render_field.html" import render_field %}
+<div class="column is-6 is-offset-3 bg-dark">
+    <legend class="border-bottom mb-4 "><h2>Create Order Form</h2></legend>
+    <div class="box">
+
+        <form method="post" action="{{ url_for('orders.done') }}">
+            {{ form.hidden_tag() }}
+
+            {{ render_field(form.first_name)}}
+            {{ render_field(form.last_name)}}
+            {{ render_field(form.phone)}}
+            {{ render_field(form.district)}}
+            {{ render_field(form.region)}}
+            {{ render_field(form.city)}}
+            {{ render_field(form.mail)}}
+            {{ render_field(form.number)}}
+
+            <p>{{ form.submit(class="btn btn-outline-info ") }}</p>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

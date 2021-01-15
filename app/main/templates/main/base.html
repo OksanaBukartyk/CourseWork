@@ -1,0 +1,124 @@
+<!-- templates/base.html -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JbFlowersMaker</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300i,400,500,700,900&amp;subset=cyrillic,cyrillic-ext"
+          rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon"
+          href="https://cdn1.savepice.ru/uploads/2021/1/15/32a933ac8bbf2bf5b34439ab721fda3d-full.png">
+    <link rel="apple-touch-icon"
+          href="https://cdn1.savepice.ru/uploads/2021/1/15/32a933ac8bbf2bf5b34439ab721fda3d-full.png">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+
+
+</head>
+
+
+<body>
+
+
+<section class="hero is-dark is-medium is-fullheight">
+    <div style="background: url(https://i0.wp.com/www.taiyamaddison.com/wp-content/uploads/2017/05/Color-Block-Wallpaper-7.jpg)"
+         class="page-holder bg-cover weight=100% height=100% no-repeat ">
+
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarCollapse"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav navbar-start">
+                    <img class="rounded-circle account-img"  width="50" height="35"
+                 src="{{  url_for('products.static', filename='profile_pics/' + 'logo.png')}}">
+
+                    <li class="nav-item "><a href="{{ url_for('main.index') }}" class="navbar">Home</a></li>
+                </ul>
+                <ul class="navbar-nav navbar-start">
+                    {% if current_user.is_authenticated and current_user.is_admin()%}
+                    <li class="nav-item "><a href="{{ url_for('administrations.admin_home') }}" class="navbar-item"> Administrator</a></li>
+                    <li class="nav-item "><a href="/admin/" class="navbar-item"> Admin Panel</a></li>
+                    {% endif %}
+                </ul>
+                <ul class="navbar-nav navbar-end">
+
+                </ul>
+                <ul class="navbar-nav navbar-end">
+                    {% if not current_user.is_authenticated %}
+                    <li class="nav-item "><a href="{{ url_for('auth.login')  }}" class="navbar-item">Login</a></li>
+                    <li class="nav-item "><a href="{{ url_for('auth.signup')  }}" class="navbar-item">Sign Up</a></li>
+                    {% endif %}
+
+                    <li class="nav-item "><a href="{{ url_for('products.all_products')  }}" class="navbar-item">All
+                        posts</a></li>
+
+
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item "><a href="{{ url_for('orders.my_orders')}} " class="navbar-item">CARD</a></li>
+                    <li class="nav-item "><a href="{{ url_for('orders.archive')}} " class="navbar-item">Archive</a></li>
+                    {% if current_user.is_admin() %}
+                    <li class="nav-item "><a href="{{ url_for('products.create') }}" class="navbar-item">Create
+                        product</a></li>
+                    {% endif %}
+                    <li class="nav-item "><a href="{{ url_for('auth.logout')}}" class="navbar-item">Log out</a></li>
+                    {% endif %}
+
+                </ul>
+
+            </div>
+        </nav>
+    </header>
+
+
+    <div class="hero-body ">
+
+        <div class="container has-text-centered">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" role="alert"> {{ message }}</div>
+            {% endfor %} {% endif %} {% endwith %}
+
+            {% block content %}
+            {% endblock %}
+             {% block carousel %}
+
+    {% endblock %}
+
+
+        </div>
+    </div>
+
+
+    <footer>
+        <p class="text-dark">&copy; Created by Oksana Petriv</p>
+    </footer>
+    </div>
+</section>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src='script.js'></script>
+</body>
+</html>

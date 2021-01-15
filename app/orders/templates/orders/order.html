@@ -1,0 +1,79 @@
+{% extends '/main/base.html' %}
+
+{% block content %}
+
+{% for order in order %}
+<div class="container bg-dark">
+    </br>
+
+    <div class="container">
+
+        <div id="navbarMenuHeroA" class="navbar-menu">
+            <div class="navbar-end">
+
+
+                <a href="{{ url_for('orders.edit', id = order.id)}}" class="navbar-item">Edit Order</a>
+                <a class="navbar-item" data-toggle="modal" data-target="#myModal">Delete Order</a>
+
+
+                <!-- The Modal -->
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content text-dark">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title ">Confirm page</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                Are you sure that you want delete this order?
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <a href="{{ url_for('orders.delete', id = order.id)}}" class="btn btn-danger text-light"
+                                   data-dismiss="">Delete</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        </br>
+        <h3 class="title"> Your choice </h3>
+        <img width="300px" class=" border border-dark img-responsive "
+             src="{{ url_for('products.static', filename='profile_pics/' + order.ordersProduct.avatar) }}">
+        <p>
+       <a href="{{ url_for('products.product', id = order.ordersProduct.id)}}"
+          class="navbar-item btn btn-outline-info">Visit product page &raquo;</a></p>
+
+        <div class="card text-white bg-secondary mb-10 border-dark " style="max-width: 75rem;">
+            <div class="card-header "><h1>Information about order :</h1></div>
+            <div class="card-body">
+
+                <h2 class="subtitle">Name: {{ order.ordersProduct.name}} </h2>
+                <h2 class="subtitle">Description: {{ order.ordersProduct.description}} </h2>
+                <h2 class="subtitle">Price: {{ order.ordersProduct.price}} </h2>
+                <h2 class="subtitle">Category: {{ order.ordersProduct.category }} </h2>
+            </div>
+
+                <div class="card-header "><h2>Your choice:</h2></div>
+            <div class="card-body">
+                <h2 class="subtitle">Count: {{ order.count}} </h2>
+                <h2 class="subtitle">Color: {{ order.color}} </h2>
+                <h2 class="subtitle">Created: {{ order.timestamp.strftime("%d-%m-%Y %H:%M:%S")}} </h2>
+            </div>
+
+
+        </div>
+         <p><br></p>
+        {% endfor %}
+    </div>
+</div>
+    {% endblock %}

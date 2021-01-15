@@ -1,0 +1,25 @@
+{% extends "/main/base.html" %}
+
+{% block content %}
+{% from "/main/_render_field.html" import render_field %}
+<div class="column is-6 is-offset-3 bg-dark">
+    <legend class="border-bottom mb-4 "><h2>Edit Form</h2></legend>
+    <div class="box">
+
+        <form method="post" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+
+            {{ render_field(form.name) }}
+            {{ render_field(form.description) }}
+            {{ render_field(form.price) }}
+            {{ render_field(form.count) }}
+            {{ render_field(form.category) }}
+            {{ render_field(form.color) }}
+            <p>{{ form.submit(class="btn btn-outline-info ") }}</p>
+        </form>
+
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends '/main/base.html' %}
+
+{% block content %}
+{% for product in product %}
+{% from "/main/_render_field.html" import render_field %}
+<div class="container bg-dark">
+    </br>
+
+    <div class="container">
+
+        <div id="navbarMenuHeroA" class="navbar-menu">
+            <div class="navbar-end">
+
+                {% if current_user.is_admin() %}
+                <a href="{{ url_for('products.edit', id = product.id)}}" class="navbar-item">Edit Product</a>
+                <a class="navbar-item" data-toggle="modal" data-target="#myModal">Delete Product</a>
+                {%endif%}
+
+                <!-- The Modal -->
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content text-dark">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title ">Confirm page</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                Are you sure that you want delete this post?
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <a href="{{ url_for('products.delete', id = product.id)}}"
+                                   class="btn btn-danger text-light" data-dismiss="">Delete</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        </br>
+        <h3 class="title"> Your choice </h3>
+
+        <img width="300px" class=" border border-dark img-responsive "
+             src="{{ url_for('products.static', filename='profile_pics/' + product.avatar) }}">
+
+        <p>{% if current_user.is_admin() %}
+            <a href="{{ url_for('products.edit_main', id = product.id)}}" class="navbar-item btn btn-outline-info">Edit
+                main photo</a>
+            {%endif%}</p></br>
+
+        <a href="{{ url_for('orders.create', id = product.id)}}"
+           class="navbar-item btn btn-outline-info">Create order &raquo;</a>
+
+        <div class="column is-10 is-offset-1 bg-dark ">
+            <h2 class="account-heading">Information:
+                <legend class="border-bottom mb-9"></legend>
+            </h2>
+            <div class="box">
+                <div class="media-body">
+                    <h2 class="account-heading">Name: {{ product.name}}
+                        <legend class="border-bottom mb-4"></legend>
+                    </h2>
+
+                    <p class="text-secondary"> Description: {{ product.description}}</p>
+                    <p class="text-secondary">Price: {{ product.price}}</p>
+                    <p class="text-secondary">Count: {{ product.count}} грн</p>
+                    <p class="text-secondary">Created: {{ product.timestamp.strftime("%d-%m-%Y %H:%M:%S")}}</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container">
+            <h2 class="account-heading">Gallery:
+                <legend class="border-bottom mb-4"></legend>
+            </h2>
+            {% if current_user.is_admin() %}
+            <a href="{{ url_for('products.edit_other', id = product.id)}}" class="navbar-item btn btn-outline-info">Edit
+                photo</a>
+            {%endif%}
+            <p></p>
+            {% for image in images %}
+            <img width="500px" class=" border border-dark img-responsive "
+                 src="{{ url_for('products.static', filename='profile_pics/' + image.image_file) }}">
+            {% endfor %}
+            <h2 class="account-heading"><p></p>
+                <legend class="border-bottom mb-8"></legend>
+            </h2>
+
+        </div>
+    </div>
+
+</div>
+{% endfor %}
+
+{% endblock %}
