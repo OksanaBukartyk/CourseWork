@@ -41,7 +41,7 @@ def create(id):
             db.session.commit()
 
             flash('Congratulations! You can continue to buy!', 'success')
-            return redirect(url_for('products.'))
+            return redirect(url_for('products.products'))
     else:
         flash('In card allready!', 'success')
         return redirect(url_for('orders.order', id=order_first.id))

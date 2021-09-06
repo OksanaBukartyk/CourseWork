@@ -3,7 +3,14 @@
 
 {%block carousel%}
 
-
+<style>
+   .outline {
+    border: 2px solid pink;
+    background: grey;
+    color: white;
+    padding: 0 10px;
+          }
+  </style>
 <div class="container">
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -56,12 +63,14 @@
 
 
 {% block content %}
+
 <img class="rounded-circle account-img"  width="300" height="300"
                  src="{{  url_for('products.static', filename='profile_pics/' + 'logo.png')}}">
 
-<br>
-<h2 class="text-dark">Це я @julialadybird<hr>
+<br><br><br><br><br><br><br><br>
+<h2 class="outline"><br>Це я @julialadybird<hr>
 Прикраси для дівчаток своїми руками🌷
 Різноманіття, акуратність виконання, якість матеріалів!<hr>
-Спробую втілити усі ваші бажання❤️</h2>
+Спробую втілити усі ваші бажання❤<br>️</h2>
+<br><br><br><br><br><br><br><br>
 {%endblock%}
